@@ -1,0 +1,30 @@
+api_path = http://174.143.25.48:8080/mudu-0.1/api/<method>
+Methods:
+
+players returns all players
+
+single player: players/view/12345 <- facebook id
+
+to create the invite achievement, post the variables
+variables:
+facebookId
+achievementId (1 is for inviting)
+
+achievements/create
+
+
+[{"id":3,"name":"Invite","description":"Invited a friend(s)","score":0,"timesTriggered":0},
+{"id":4,"name":"Buck Wild","description":"Mudded with Buck Wild","score":0,"timesTriggered":0},
+{"id":5,"name":"Dr Walnuts","description":"Mudded with Dr Walnuts","score":0,"timesTriggered":0},
+{"id":6,"name":"Sasplotch","description":"Mudded with Sasplotch","score":0,"timesTriggered":0},
+{"id":7,"name":"Dirty Harry","description":"Mudded with Dirty Harry","score":0,"timesTriggered":0},
+{"id":8,"name":"Mudded a Friend","description":"Mudded a Friend.","score":0,"timesTriggered":0},
+{"id":9,"name":"Shared Mud","description":"Shared a mudded photo.","score":0,"timesTriggered":0}]
+
+{facebookId:1111111, interactionId:5, interactionValue:12345}
+
+http://muduapp.srsc.us/api/interactions/create/
+post 
+facebookId:
+interactionId:
+interactionValue:
