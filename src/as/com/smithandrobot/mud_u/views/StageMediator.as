@@ -82,7 +82,6 @@ package com.smithandrobot.mud_u.views
 			f.sasplotchLocked = false;
 		}
 		
-		
 		//--------------------------------------
 		//  PROTECTED/PRIVATE METHODS
 		//--------------------------------------
@@ -100,9 +99,9 @@ package com.smithandrobot.mud_u.views
 			var d = scope.addChild(new Dashboard()) as Dashboard;
 			
 			statusBar.uID = o;
+            facade.registerMediator( new DashboardMediator( d ) );
             facade.registerMediator( new ScreenMediator( scope ) );
             facade.registerMediator( new StatusMediator( statusBar ) );
-            facade.registerMediator( new DashboardMediator( d ) );
 			scope.dispatchEvent(new Event("onSiteInitialized", true));
         }
 		

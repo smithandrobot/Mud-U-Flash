@@ -27,6 +27,8 @@ package com.smithandrobot.mud_u.views
 		public function DashboardMediator( viewComponent:Object ):void 
 		{
 			super(NAME, viewComponent);
+			var fbProxy = facade.retrieveProxy("FacebookDataProxy") as FacebookDataProxy;
+			fbProxy.getFriends(); 
 		}
 
 
@@ -37,7 +39,9 @@ package com.smithandrobot.mud_u.views
 				case ApplicationFacade.PLAYER_DATA :
 					onPlayerData(notification.getBody());
 					break;
-				
+				case ApplicationFacade.FRIENDS_DATA_LOADED:
+					onFriendsData(notification.getBody());
+					break;
 				default:
 					break;
 			}
@@ -47,7 +51,8 @@ package com.smithandrobot.mud_u.views
 		override public function listNotificationInterests():Array 
 		{
 			return [
-					ApplicationFacade.PLAYER_DATA
+					ApplicationFacade.PLAYER_DATA,
+					ApplicationFacade.FRIENDS_DATA_LOADED
 					];
 		}
 		
@@ -59,6 +64,12 @@ package com.smithandrobot.mud_u.views
 			/*f.sasplotchLocked = false;*/
 			trace("heard player data: "+obj);
 			dashbord.data = obj;
+		}
+		
+		
+		private function onFriendsData(d) : void
+		{
+			dashbord.friends = d;
 		}
 		
 		

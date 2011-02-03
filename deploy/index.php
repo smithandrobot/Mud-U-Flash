@@ -128,7 +128,7 @@
 	<meta name="description" content="">
 	<meta name="content" content="">
 	<meta name="keywords" content="">
-	<link rel="stylesheet" type="text/css" href="default.css"> 
+	<link rel="stylesheet" type="text/css" href="default.css">
 	<script src="http://connect.facebook.net/en_US/all.js"></script>
 	<script src="js/swfobject.js" type="text/javascript" charset="utf-8"></script>
   	<script type="text/javascript" charset="utf-8">
@@ -164,7 +164,18 @@
 		
 		function setInviteState(s) { inviteState = s; };
 
-		
+		window.fbAsyncInit = function() 
+		{
+				FB.Canvas.setSize( {height:1125} );
+				FB.Canvas.setAutoResize();
+			  	FB.init({
+			    appId  : '<?php echo $appID; ?>',
+			    status : true, // check login status
+			    cookie : true, // enable cookies to allow the server to access the session
+			    xfbml  : true  // parse XFBML
+			  	});
+
+		};
 	</script>
 	
 	<script type="text/javascript">
@@ -172,7 +183,7 @@
 		var swf_file =  	   "<?php echo $swfBase.'mud_u_app_loader.swf?cache='.$cache; ?>";
 		var swf_div =  		   "swfContainer";
 		var swf_div_width =    "760px";
-		var swf_div_height =   "670px";
+		var swf_div_height =   "1125px";
 		var swf_install =  	   "http://c0374997.cdn2.cloudfiles.rackspacecloud.com/expressInstall.swf";
 		var swf_redirect_ver = "10.0.0"
 		var swf_redirect =     "./";
@@ -188,27 +199,17 @@
 
 	</script>
 </head>
-	
+
 <body>
-	<script type="text/javascript">
-	    window.onload = function()
-	    {
-				
-			  FB.init({
-			    appId  : '<?php echo $appID; ?>',
-			    status : true, // check login status
-			    cookie : true, // enable cookies to allow the server to access the session
-			    xfbml  : true  // parse XFBML
-			  });
-	    };
-	</script>
-	<div id="flashContainer">
-	    <div id="swfContainer">
-	        <p>Mud U Application</p>
-	    </div>
-	    <noscript> Get Flash and/or enable Javascript. </noscript>
+	<div id="fb-root">
+		<div id="flashContainer">
+		    <div id="swfContainer">
+		        <p>Mud U Application</p>
+		    </div>
+		    <noscript> Get Flash and/or enable Javascript. </noscript>
+		</div>
 	</div>
-	<iframe id="invite" scrolling="no" allowtransparency="true" frameborder="0" style="border:none; width:760px; height:670px; margin:0px; padding:0px; overflow:hidden; position:absolute; top:0px; left:0px;"></iframe>
+	<iframe id="invite" scrolling="no" allowtransparency="true" frameborder="0" style="border:none; width:760px; height:1125px; margin:0px; padding:0px; overflow:hidden; position:absolute; top:0px; left:0px;"></iframe>
 	<script type="text/javascript">
 	    window.onload = function()
 	    {   			

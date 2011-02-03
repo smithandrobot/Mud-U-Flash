@@ -159,16 +159,15 @@ package com.smithandrobot.mud_u.model
 		
 		private function onCreatePlayer(e:Event) : void
 		{
-			trace(e.target.data);
-			_playerData = JSON.decode(e.target.data);
-			_apiProxy.playerData = _playerData;
-			/*_playerData.photosMudded = 1;
-			_playerData.photosShared = 1;
-			_playerData.mudvites = 5;
-			_playerData.mudprops = 5;
-			_playerData.rank = 1534;
-			_playerData.weekRank = 1123;
-			_playerData.numberOfFriendsUsing = 12;*/
+			_playerData 			 = JSON.decode(e.target.data);
+			_apiProxy.playerData 	 = _playerData;
+		   	_playerData.photosMudded = 1;
+		   	_playerData.photosShared = 0;
+		   	_playerData.mudvites 	 = 5;
+		   	_playerData.mudprops 	 = 6;
+		   	_playerData.rank 		 = 15344;
+		   	_playerData.weekRank 	 = 1123;
+			_playerData.friendsData  = [{id:3417915, rank:14}, {id:500041832, rank:2}, {id:500042807, rank:14}];
 						
 			sendNotification( ApplicationFacade.PLAYER_DATA, _playerData);
 		}

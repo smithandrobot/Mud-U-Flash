@@ -64,6 +64,7 @@ package com.smithandrobot.mud_u.model
 				sendNotification( ApplicationFacade.FRIENDS_DATA_LOADED, _friends);
 				return;
 			}else{
+				trace("getting friends forst time!")
 				var req:URLRequest = new URLRequest("https://graph.facebook.com/me/friends?fields=name,picture,id&access_token=" + _token);
 				var friendsRequest:URLLoader = new URLLoader();
 				friendsRequest.addEventListener(Event.COMPLETE, onFriendsLoaded);
@@ -120,6 +121,7 @@ package com.smithandrobot.mud_u.model
 				return;
 			}
 			var req:URLRequest = new URLRequest("https://api.facebook.com/method/friends.getAppUsers?access_token="+ _token +"&format=json");
+			trace("friends using app:\r"+req.url);
 			var friendsUsingAppRequest:URLLoader = new URLLoader();
 			friendsUsingAppRequest.addEventListener(Event.COMPLETE, onFriendsUsingAppLoaded);
 			friendsUsingAppRequest.addEventListener(IOErrorEvent.IO_ERROR , onFBLoadError)
@@ -315,7 +317,6 @@ package com.smithandrobot.mud_u.model
 		{
 			_friendsUsingAppData = JSON.decode(e.target.data);
 			sendNotification( ApplicationFacade.FRIENDS_USING_APP_DATA_LOADED, _friendsUsingAppData);
-			
 		}
 		
 		

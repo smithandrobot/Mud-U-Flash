@@ -23,6 +23,9 @@ package com.smithandrobot.mud_u.views.ui
 		private var _friendStatsData;
 		private var _friendStatsNoData;
 		
+		private var _friends;
+		private var _playerData;
+		
 		public function Dashboard()
 		{
 			super();
@@ -37,10 +40,20 @@ package com.smithandrobot.mud_u.views.ui
 		
 		public function set data(d) : void
 		{
+			_playerData = d;
 			setRibbon(d);
 			setScoreboard(d);
-			setFriendStatus(d);
+			if(_friends) setFriendStatus(d);
 		}
+		
+		
+		public function set friends(d) : void
+		{
+			_friends = d;
+			if(_playerData) setFriendStatus(_playerData);
+		}
+		
+		
 		
 		//--------------------------------------
 		//  PUBLIC METHODS
@@ -92,7 +105,7 @@ package com.smithandrobot.mud_u.views.ui
 
 			if(d.hasOwnProperty("rank"))
 			{
-				if(_ribbonNoData.hasOwnProperty("parent"))
+				if(_ribbonNoData && _ribbonNoData.hasOwnProperty("parent"))
 				{
 					delay = .2;
 					TweenMax.to(_ribbonNoData, .2, {alpha:0, scaleX:.2, scaleY:.2, ease:Back.easeIn, onComplete:function(){removeView(_scoreboardNoData)}});
@@ -119,10 +132,11 @@ package com.smithandrobot.mud_u.views.ui
 		private function setScoreboard(d)
 		{
 			var delay = 0;
+
 			if( d.hasOwnProperty("photosMudded") || d.hasOwnProperty("photosShared") ||
 				d.hasOwnProperty("mudvites") || d.hasOwnProperty("mudprops"))
 			{
-				if(_scoreboardNoData.hasOwnProperty("parent"))
+				if(_scoreboardNoData && _scoreboardNoData.hasOwnProperty("parent"))
 				{
 					delay = .15;
 					TweenMax.to(_scoreboardNoData, .2, {alpha:0, scaleX:.2, scaleY:.2, ease:Back.easeIn, onComplete:function(){removeView(_scoreboardNoData)}});
@@ -133,6 +147,15 @@ package com.smithandrobot.mud_u.views.ui
 					_scoreboardData.x = -17;
 					TweenMax.from(_scoreboardData, .2, {delay:delay, alpha:0, scaleX:.2, scaleY:.2, ease:Back.easeOut});
 				}
+				
+				if(_scoreboardData)
+				{
+		   			_scoreboardData.photosMudded.text = d.photosMudded;
+		   			_scoreboardData.photosShared.text = d.photosShared;
+		   			_scoreboardData.mudvites.text = d.mudvites;
+		   			_scoreboardData.mudProps.text = d.mudprops+" Mud Props";
+				}
+				
 			}else{
 				_scoreboardNoData = scoreboard.addChild(new ScoreboardNoData());
 				_scoreboardNoData.x = -26;
@@ -144,11 +167,18 @@ package com.smithandrobot.mud_u.views.ui
 		
 		private function setFriendStatus(d) : void
 		{
-			if( d.hasOwnProperty("numberOfFriendsUsing") )
+			if( d.hasOwnProperty("friendsData") )
 			{
+				var total = 0;
 				var delay = 0;
+				var friendsUsingApp;
+				var d;
+				var offset = 90;
+				var start = -90;
+				var text1 = " of your friends is a Mud Challenger";
+				var text2 = " of your friends are Mud Challengers";
 				
-				if(_friendStatsNoData.hasOwnProperty("parent"))
+				if(_friendStatsNoData && _friendStatsNoData.hasOwnProperty("parent"))
 				{
 					TweenMax.to(_friendStatsNoData, .2, {x:"-5", alpha:0, ease:Back.easeOut, onComplete:function(){removeView(_friendStatsNoData)}});
 					delay = .15;
@@ -156,12 +186,29 @@ package com.smithandrobot.mud_u.views.ui
 				
 				if(!_friendStatsData)
 				{
-					_friendStatsData = friendStats.addChild(new FriendsStatsData()) as MovieClip;
+					_friendStatsData = friendStats.addChild(new FriendsStatsData()) as FriendsStatsData;
 					_friendStatsData.x 	   	= 130;
 					_friendStatsData.y 	   	= 94;
 					TweenMax.from(_friendStatsData, .2, {delay:delay, alpha:0});
+					var h1Text = (d.friendsData.length > 1) ? "Top "+String(d.friendsData.length)+" Friends" : "Top Friend";
+					var h2Text = (d.friendsData.length > 1) ? String(d.friendsData.length)+text2 : String(d.friendsData.length)+text1;
+
+					_friendStatsData.headline.text 	 	= h1Text;
+			   		_friendStatsData.friendCount.text	= h2Text;
+			   		friendsUsingApp 				 	= getFriendsUsingApp(d.friendsData);
+			   		total 							 	= d.friendsData.length-1;
+			   		
+			   		for(var i = 0; i<= total; i++)
+			   		{
+			   			d = _friendStatsData.addChild(new DashboardFriendModule(friendsUsingApp[i]));
+			   			d.x = start + (i*offset);
+			   			d.y = 38
+			   		}
 				}
+
+				
 			}else{
+				if(_friendStatsNoData) return;
 				_friendStatsNoData = friendStats.addChild(new FriendsStatsNoData()) as MovieClip;
 				_friendStatsNoData.x = 133;
 				_friendStatsNoData.y = 76;
@@ -204,12 +251,64 @@ package com.smithandrobot.mud_u.views.ui
 		
 		private function removeView(v) : void
 		{
-			trace('attempting to remove: '+v);
-			if(v.parent)
+			var p = v.parent;
+			if(p != null)
 			{
-				v.parent.removeChild(v);
-				trace('removing: '+v+' its parent is: '+v.parent);
+				p.removeChild(v);
 			}
+		}
+		
+		private function clone(source:Object) : *
+		{
+			var myBA:ByteArray = new ByteArray();
+			myBA.writeObject(source);
+			myBA.position = 0;
+			return(myBA.readObject());
+		}
+		
+		private function getFriendsUsingApp(d) : Array
+		{
+			if(!_friends) return new Array();
+			
+			var currId;
+			var currRank;
+			var friends = new Array();
+			var f;
+			
+			var func = function(o, i) 
+			{ 
+				if(o && o.id == currId) 
+				{
+					f = friends.push(clone(o));
+					friends[f-1].name += "\r#"+currRank;
+					trace(friends[f-1].name)
+				}
+			}
+			
+			trace("d: "+d)
+			for(var i in d)
+			{
+				if(d[i].hasOwnProperty("id")) 
+				{
+					currId = d[i].id;
+				}else{trace("no id on obj")}
+				
+				if(d[i].hasOwnProperty("rank")) 
+				{
+					currRank = d[i].rank;
+				}else{trace("no rank on object")};
+				
+				_friends.forEach(func);
+			}
+			trace("made it through loop")
+			friends.forEach(addReturn);
+			return friends;
+		}
+		
+		private function addReturn(o, i, a) : void
+		{
+			var n = o.name.split(" ");
+			if(n[1]) o.name = n[0]+"\r"+n[1];
 		}
 	}
 

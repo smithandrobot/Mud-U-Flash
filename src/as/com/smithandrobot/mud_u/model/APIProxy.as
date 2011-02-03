@@ -123,15 +123,14 @@ package com.smithandrobot.mud_u.model
 		
 		private function onUserDataLoaded(e:Event = null) : void
 		{
-			trace("api: "+e.target.data);
 			_userData = JSON.decode(e.target.data);
-		   _userData.photosMudded = 1;
-		   _userData.photosShared = 1;
-		   _userData.mudvites = 5;
-		   _userData.mudprops = 5;
-		   _userData.rank = 1534;
-		   _userData.weekRank = 1123;
-		   _userData.numberOfFriendsUsing = 12;
+		   	_userData.photosMudded = 2;
+		   	_userData.photosShared = 0;
+		   	_userData.mudvites = 6;
+		   	_userData.mudprops = 8;
+		   	_userData.rank = 15340;
+		   	_userData.weekRank = 120;
+			_userData.friendsData = [{id:3417915, rank:14}, {id:500041832, rank:2}, {id:500042807, rank:14}];
 			sendNotification( ApplicationFacade.PLAYER_DATA, _userData );
 		}
 		
