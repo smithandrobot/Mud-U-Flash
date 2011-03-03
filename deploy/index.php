@@ -203,7 +203,6 @@
 </head>
 
 <body>
-	<p>m</p>
 	<div id="fb-root">
 		<div id="flashContainer">
 		    <div id="swfContainer">
