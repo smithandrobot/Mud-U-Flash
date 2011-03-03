@@ -66,6 +66,7 @@ package com.smithandrobot.mud_u.views.ui
 		
 		public function set addToGallery(a: Boolean) : void { _addToGallery = a; };
 		
+		
 		private function set action(i:int) : void { _loader.percent = i/_totalActions; };
 				
 		public function set fbstatus(s:String) : void
@@ -119,6 +120,8 @@ package com.smithandrobot.mud_u.views.ui
 			_loader.start();
 			status.text = "Uploading Photo";
 			_fbproxy.uploadPhoto(_photo, _tags);
+			
+			if(_addToGallery) _fbproxy.addToAdventureUGallery(_photo);
 		}
 		
 		
@@ -168,10 +171,6 @@ package com.smithandrobot.mud_u.views.ui
 		
 		public function remove()
 		{
-			trace("Actions:"+
-			"\rpostedToWall: "+_actions.postedToWall+
-			"\rphotoTagged: "+_actions.photoTagged+
-			"\rphotoUploadedToUserAlbum: "+_actions.photoUploadedToUserAlbum+"\r");
 			_appProxy.shareActions = _actions;
 			dispatchEvent(new Event("onShareCompleted", true));
 			parent.removeChild(this);
@@ -183,11 +182,6 @@ package com.smithandrobot.mud_u.views.ui
 			_actions.postedToWall = false;
 			_actions.photoTagged = false;
 			_actions.photoUploadedToUserAlbum = false;
-
-			/*_tags 		  = false;
-			_posts 		  = false;
-			_makeProfile  = false;
-			_addToGallery = false;*/
 		}
 		
 	}

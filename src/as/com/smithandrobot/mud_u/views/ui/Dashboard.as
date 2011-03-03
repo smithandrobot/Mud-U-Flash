@@ -6,10 +6,13 @@ package com.smithandrobot.mud_u.views.ui
 	import flash.events.*;
 	import flash.utils.*;
 	import flash.geom.Point;
+	import flash.net.*;
 	
 	import com.greensock.*;
 	import com.greensock.plugins.*;
 	import com.greensock.easing.*;
+	
+	import com.smithandrobot.mud_u.MudUGATracker;
 	
 	public class Dashboard extends Sprite 
 	{
@@ -40,10 +43,10 @@ package com.smithandrobot.mud_u.views.ui
 		
 		public function set data(d) : void
 		{
-			_playerData = d;
-			setRibbon(d);
-			setScoreboard(d);
-			if(_friends) setFriendStatus(d);
+			_playerData = d.data.stats;
+			setRibbon(d.data.stats);
+			setScoreboard(d.data.stats);
+			if(_friends) setFriendStatus(d.data.stats);
 		}
 		
 		
@@ -75,11 +78,14 @@ package com.smithandrobot.mud_u.views.ui
 			
 			allTeamLeaders.addEventListener(MouseEvent.MOUSE_OUT, mouseOverOutHandler);
 			allTeamLeaders.addEventListener(MouseEvent.MOUSE_OVER, mouseOverOutHandler);
-			allTeamLeaders.addEventListener(MouseEvent.CLICK, mouseOverOutHandler);
+			allTeamLeaders.addEventListener(MouseEvent.CLICK, onClick);
 			
 			thisWksLeaders.addEventListener(MouseEvent.MOUSE_OUT, mouseOverOutHandler);
 			thisWksLeaders.addEventListener(MouseEvent.MOUSE_OVER, mouseOverOutHandler);
-			thisWksLeaders.addEventListener(MouseEvent.CLICK, mouseOverOutHandler);
+			thisWksLeaders.addEventListener(MouseEvent.CLICK, onClick);
+			
+			thisWksLeaders.buttonMode = true;
+			allTeamLeaders.buttonMode = true;
 		}
 		
 		
@@ -87,6 +93,12 @@ package com.smithandrobot.mud_u.views.ui
 		{
 			if(e.type == MouseEvent.MOUSE_OVER) TweenMax.to(e.target, .25, {scale:1.05});
 			if(e.type == MouseEvent.MOUSE_OUT) TweenMax.to(e.target, .25, {scale:1});
+		}
+		
+		private function onClick(e:MouseEvent) : void
+		{
+			MudUGATracker.trackOutboundClick("http://www.facebook.com/AdventureU?sk=app_4949752878");
+			navigateToURL(new URLRequest("http://www.facebook.com/AdventureU?sk=app_4949752878"), "_blank");
 		}
 		
 		
@@ -189,14 +201,15 @@ package com.smithandrobot.mud_u.views.ui
 					_friendStatsData = friendStats.addChild(new FriendsStatsData()) as FriendsStatsData;
 					_friendStatsData.x 	   	= 130;
 					_friendStatsData.y 	   	= 94;
+					total 					= (d.friendsData.length-1 > 2) ? 2 : d.friendsData.length-1;
 					TweenMax.from(_friendStatsData, .2, {delay:delay, alpha:0});
-					var h1Text = (d.friendsData.length > 1) ? "Top "+String(d.friendsData.length)+" Friends" : "Top Friend";
+					var h1Text = (total > 0) ? "Top "+String(total+1)+" Friends" : "Top Friend";
 					var h2Text = (d.friendsData.length > 1) ? String(d.friendsData.length)+text2 : String(d.friendsData.length)+text1;
 
 					_friendStatsData.headline.text 	 	= h1Text;
 			   		_friendStatsData.friendCount.text	= h2Text;
 			   		friendsUsingApp 				 	= getFriendsUsingApp(d.friendsData);
-			   		total 							 	= d.friendsData.length-1;
+			   		
 			   		
 			   		for(var i = 0; i<= total; i++)
 			   		{
@@ -208,6 +221,7 @@ package com.smithandrobot.mud_u.views.ui
 
 				
 			}else{
+				trace("no friendsData property")
 				if(_friendStatsNoData) return;
 				_friendStatsNoData = friendStats.addChild(new FriendsStatsNoData()) as MovieClip;
 				_friendStatsNoData.x = 133;
@@ -280,12 +294,11 @@ package com.smithandrobot.mud_u.views.ui
 				if(o && o.id == currId) 
 				{
 					f = friends.push(clone(o));
-					friends[f-1].name += "\r#"+currRank;
+					friends[f-1].name += "\r"+"#"+currRank;
 					trace(friends[f-1].name)
 				}
 			}
-			
-			trace("d: "+d)
+
 			for(var i in d)
 			{
 				if(d[i].hasOwnProperty("id")) 
@@ -300,7 +313,7 @@ package com.smithandrobot.mud_u.views.ui
 				
 				_friends.forEach(func);
 			}
-			trace("made it through loop")
+			
 			friends.forEach(addReturn);
 			return friends;
 		}

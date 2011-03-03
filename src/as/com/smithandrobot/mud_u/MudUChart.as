@@ -7,7 +7,7 @@ package com.smithandrobot.mud_u
 	import flash.events.*;
 	import flash.utils.*;
 	import flash.geom.Point;
-	
+	import flash.external.*;
 	import com.greensock.*;
 	import com.greensock.plugins.*;
 	import com.greensock.easing.*;
@@ -297,9 +297,15 @@ package com.smithandrobot.mud_u
 			
 			if( loaderInfo.parameters.mudpie )
 			{
-				data = null;
+				var d = loaderInfo.parameters;
+				data = new Object();
+				data.mudpie = Number(d.mudpie);
+				data.buck_wild = Number(d.buck_wild);
+				data.squirrel = Number(d.squirrel);
+				data.sasplotch = Number(d.sasplotch);
+				
 			}else{
-				data = {mudpie:1000, buck_wild:200, squirrel:50, sasplotch:2};	
+				data = {mudpie: 1983, buck_wild: 2720, squirrel: 2033, sasplotch: 592};
 			}
 			
 			_data = data;
@@ -329,7 +335,8 @@ package com.smithandrobot.mud_u
 			var scale  = 0
 			var min = .6;
 			var h;
-			
+
+			/*ExternalInterface.call('alert', 'highest: '+highest+', mudpie: '+obj.mudpie+', buck_wild: '+obj.buck_wild+', squirrel: '+obj.squirrel+', sasplotch: '+obj.sasplotch);*/
 			var bars = [
 					  	{bar:bearBar, data:obj.mudpie}, 
 					  	{bar:deerBar, data:obj.buck_wild},
@@ -345,7 +352,7 @@ package com.smithandrobot.mud_u
 				bar = bars[i];
 				scale = bar.data/highest;
 				//scale = min;
-				h = minHeight+(remainder*scale);
+				h = 148*scale//minHeight+(remainder*scale);
 				trace("scale: "+scale+" h: "+h)
 				TweenMax.to(bar.bar, .2 ,{delay:i*delay, height:h, ease:Back.easeOut});
 			

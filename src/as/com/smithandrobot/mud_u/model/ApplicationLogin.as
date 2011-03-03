@@ -76,8 +76,8 @@ package com.smithandrobot.mud_u.model
 		{	
 			var sessionObj:Object  	= {};
 			// test user	
-			//sessionObj.access_token	= "172785809421346|1eb501d7a4f471087fbcfe6b-100000241798640|NfuYzoC-NwEUPkY_hDfwliC83Go";
-			sessionObj.access_token	= "172785809421346%7Cd154fae6d39c8ea6ece26242-562363085%7CKb8UbheaTaWgJJAcsD5fdK_nD7Y";
+			sessionObj.access_token	= "172785809421346|1eb501d7a4f471087fbcfe6b-100000241798640|NfuYzoC-NwEUPkY_hDfwliC83Go";
+			//sessionObj.access_token	= "172785809421346|f757d3746bf1cf346b03a7f8-562363085|tjwtQPkmepBqbUY71M8gnEsRH-g";
 			sessionObj.expires 	   	= 000000000;
 			sessionObj.secret 	   	= "Sp7av4fu1nVZ7aEZSgPGZQ__";
 			sessionObj.session_key 	= "2.hTY_89ILXQmmit37RcQrjA__.3600.1292533200-562363085";
@@ -106,6 +106,7 @@ package com.smithandrobot.mud_u.model
 		
 		private function createPlayer(obj) : void
 		{			
+			// var req:URLRequest = new URLRequest("http://184.106.82.125/api/players/create/");
 			var req:URLRequest = new URLRequest("http://muduapp.srsc.us/api/players/create/");
 			req.method = URLRequestMethod.POST;
 			
@@ -160,16 +161,18 @@ package com.smithandrobot.mud_u.model
 		private function onCreatePlayer(e:Event) : void
 		{
 			_playerData 			 = JSON.decode(e.target.data);
+			
 			_apiProxy.playerData 	 = _playerData;
-		   	_playerData.photosMudded = 1;
+			_apiProxy.getUserData(_uid);
+		   	/*_playerData.photosMudded = 1;
 		   	_playerData.photosShared = 0;
 		   	_playerData.mudvites 	 = 5;
 		   	_playerData.mudprops 	 = 6;
 		   	_playerData.rank 		 = 15344;
 		   	_playerData.weekRank 	 = 1123;
-			_playerData.friendsData  = [{id:3417915, rank:14}, {id:500041832, rank:2}, {id:500042807, rank:14}];
+			_playerData.friendsData  = [{id:3417915, rank:14}, {id:500041832, rank:2}, {id:500042807, rank:14}];*/
 						
-			sendNotification( ApplicationFacade.PLAYER_DATA, _playerData);
+			//sendNotification( ApplicationFacade.PLAYER_DATA, _playerData);
 		}
 		
 		

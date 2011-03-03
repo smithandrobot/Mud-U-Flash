@@ -80,6 +80,7 @@ package com.smithandrobot.mud_u.views
 		{
 			var f = facade.retrieveProxy("APIProxy") as APIProxy;
 			f.sasplotchLocked = false;
+			f.addInteraction(3, "invite");
 		}
 		
 		//--------------------------------------
@@ -97,7 +98,7 @@ package com.smithandrobot.mud_u.views
         {	
 			var statusBar = scope.getChildByName("statusBar") as StatusBar;
 			var d = scope.addChild(new Dashboard()) as Dashboard;
-			
+			var cta = scope.addChild( new AdventureUCTA() ) as AdventureUCTA;
 			statusBar.uID = o;
             facade.registerMediator( new DashboardMediator( d ) );
             facade.registerMediator( new ScreenMediator( scope ) );

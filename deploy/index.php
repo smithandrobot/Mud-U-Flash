@@ -11,7 +11,7 @@
 	//    echo'<br />appType: '.$appType;
 	//    echo'<br />appID: '.$appID;
 	//    echo'<br />appURL: '.$appURL;
-	//    echo'<br />swf base: '.$swfBase;
+	//    echo'<br />swf base: '.$swfBatrase;
 	if( isset( $_GET["session"] ) )
 	{
 		$session = urldecode( $_GET["session"] );
@@ -21,7 +21,7 @@
 		}
 	}else{
 		$base_url = "https://graph.facebook.com/oauth/authorize?";
-		$scope = "user_birthday, user_location, email, read_stream, friends_photos, user_photos,publish_stream, friends_photo_video_tags, user_photo_video_tags,offline_access";
+		$scope = "manage_pages, user_birthday, user_location, email, read_stream, friends_photos, user_photos,publish_stream, friends_photo_video_tags, user_photo_video_tags,offline_access";
 		$redirect_uri = "http://apps.facebook.com/".getAppURL($appType)."/";
 		$client_id = getAppID($appType);
 		$display = "page";
@@ -167,13 +167,15 @@
 		window.fbAsyncInit = function() 
 		{
 				FB.Canvas.setSize( {height:1125} );
-				FB.Canvas.setAutoResize();
+				//FB.Canvas.setAutoResize();
 			  	FB.init({
 			    appId  : '<?php echo $appID; ?>',
 			    status : true, // check login status
 			    cookie : true, // enable cookies to allow the server to access the session
 			    xfbml  : true  // parse XFBML
 			  	});
+				//FB.Canvas.setSize( {height:1125} );
+				//FB.Canvas.setAutoResize();
 
 		};
 	</script>
@@ -201,6 +203,7 @@
 </head>
 
 <body>
+	<p>m</p>
 	<div id="fb-root">
 		<div id="flashContainer">
 		    <div id="swfContainer">
@@ -215,6 +218,7 @@
 	    {   			
 			hideInvite();
 			inviteState = "closed";
+			FB.Canvas.setSize( {height:1125} );
 	    }
 	</script>
 <fb:serverfbml> 

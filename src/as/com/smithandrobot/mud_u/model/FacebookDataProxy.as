@@ -232,6 +232,29 @@ package com.smithandrobot.mud_u.model
 			ml.load("https://api.facebook.com/method/photos.upload?access_token="+_token+"&format=json", true);
 		}
 		
+		public function addToAdventureUGallery(bmpData)
+		{
+			if(_debug) return;
+			
+			if(bmpData == null) return;
+			var albumID = "101069723301943";//"167802903267571";
+			var j_encoder:JPGEncoder = new JPGEncoder(90);
+			var img:ByteArray = j_encoder.encode(bmpData);
+
+			var ml:MultipartURLLoader = new MultipartURLLoader();
+				ml.addEventListener(MultipartURLLoaderEvent.DATA_PREPARE_COMPLETE, function(e){e.target.startLoad();});
+				ml.addEventListener(IOErrorEvent.IO_ERROR, function(e){ trace('error: '+e.text);} )
+				
+				ml.dataFormat = URLLoaderDataFormat.TEXT;
+
+				var caption = 'Uploaded From Mud U Application - http://apps.facebook.com/muduapp';
+				var accessToken = '172785809421346|f757d3746bf1cf346b03a7f8-562363085|101069723301943|n8GDIuECVRxf76NfNXd7p6vfMFs';
+				ml.addVariable("access_token", accessToken);
+				ml.addVariable("message", 'Uploaded From Mud U Application - http://apps.facebook.com/muduapp');
+				ml.addFile(img, 'img.png', 'image');
+				ml.load("https://graph.facebook.com/"+albumID+"/photos", true);
+		}
+		
 		
 		private function makeProfilePicture(bmpData:BitmapData) : void
 		{
@@ -300,6 +323,7 @@ package com.smithandrobot.mud_u.model
 		
 		private function onUserAlbumsLoaded(e:Event = null) : void
 		{
+			trace(e.target.data)
 			_userAlbums = JSON.decode(e.target.data).data;
 			_userAlbums.sortOn("name", Array.CASEINSENSITIVE);
 			sendNotification( ApplicationFacade.USER_ALBUMS_LOADED, _userAlbums);

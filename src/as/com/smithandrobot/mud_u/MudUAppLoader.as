@@ -42,7 +42,7 @@ package com.smithandrobot.mud_u
 			
 			_logo = _container.addChild(new Logo()) as MovieClip;
 			_logo.x = stage.stageWidth/2;
-			_logo.y = stage.stageHeight/2;
+			_logo.y = 720/2;
 
 			addEventListener("onSiteInitialized", onUserData);
 			trace("randNumber: "+randNumber);
@@ -108,7 +108,7 @@ package com.smithandrobot.mud_u
 			var s = new Sprite();
 			s.addChild(bmp);
 			s.x = ((stage.stageWidth/2) + Math.cos(rad) * radius);
-			s.y = ((stage.stageHeight/2) + Math.sin(rad) * radius) + 20;
+			s.y = ((720/2) + Math.sin(rad) * radius) + 20;
 			s.rotation = RobotMath.randRange(0, 180);
 
 			_bmpData.draw(s,s.transform.matrix)
@@ -135,7 +135,7 @@ package com.smithandrobot.mud_u
 			_container.y = offset;
 			_container.x = offset;
 			_logo.x = (stage.stageWidth/2) + offset ;
-			_logo.y = (stage.stageHeight/2) + offset;
+			_logo.y = (720/2) + offset;
 		}
 		
 		

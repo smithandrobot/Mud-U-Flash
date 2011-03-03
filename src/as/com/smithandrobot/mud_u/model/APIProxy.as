@@ -2,7 +2,6 @@ package com.smithandrobot.mud_u.model
 {
 	import 	flash.net.*;
 	import 	flash.events.*;
-	
 	import  com.adobe.serialization.json.*;
 	
     import com.smithandrobot.mud_u.ApplicationFacade;
@@ -14,7 +13,7 @@ package com.smithandrobot.mud_u.model
     public class APIProxy extends Proxy implements IProxy
     {
         public static const NAME:String = "APIProxy";
-		private var _baseURL = "http://muduapp.srsc.us/api/";
+		private var _baseURL = "http://muduapp.srsc.us/api/"; // "http://184.106.82.125/api/";
 		private var _userData;
 		private var _sasplotchLocked = true	;
 		private var _uID;
@@ -32,7 +31,6 @@ package com.smithandrobot.mud_u.model
 		
 		public function set sasplotchLocked(b:Boolean) :void 
 		{ 
-			trace("API PROXY heard sasplotchLocked: "+b);
 			if(_sasplotchLocked == b) return;
 			_sasplotchLocked = b;
 			if(!_sasplotchLocked) 
@@ -50,7 +48,6 @@ package com.smithandrobot.mud_u.model
 			_userData = d;
 			if(!d.hasOwnProperty("data")) return;
 			if(d.data.achievements.length > 0) _sasplotchLocked = false;
-			// trace("API Proxy playerData set locked: "+_uID+", _sasplotchLocked: "+_sasplotchLocked);
 		}
 		
 		
@@ -67,8 +64,8 @@ package com.smithandrobot.mud_u.model
 		public function getUserData( id:String ):void
 		{
 			//if(_userData) { sendNotification( ApplicationFacade.PLAYER_DATA ); };
-			
-			var req:URLRequest = new URLRequest(_baseURL+"players/view/"+id);
+			trace(_baseURL+"players/view/"+id+"?");
+			var req:URLRequest = new URLRequest(_baseURL+"players/view/"+id+"?rqstnum="+new Date().getTime());
 			var userRequest:URLLoader = new URLLoader();
 			userRequest.addEventListener(Event.COMPLETE, onUserDataLoaded);
 			userRequest.addEventListener(IOErrorEvent.IO_ERROR , onAPIError)
@@ -96,21 +93,21 @@ package com.smithandrobot.mud_u.model
 		
 		public function addInteraction(id:Number , interactionValue:String = "") : void
 		{
-			var req:URLRequest = new URLRequest(_baseURL+"interactions/create/");
+			var req:URLRequest = new URLRequest(_baseURL+"interactions/create/?"+new Date().getTime());
 			req.method = URLRequestMethod.POST;
 			
  			var variables:URLVariables = new URLVariables();
             variables.facebookId = _uID;
             variables.interactionId = id;
 			variables.interactionValue = interactionValue;
-
+			trace(req.url+"\rfacebookId"+variables.facebookId+", interactionId: "+variables.interactionId+", interactionValue: "+variables.interactionValue);
             req.data = variables;
 
 			var userRequest:URLLoader = new URLLoader();
 			userRequest.addEventListener(Event.COMPLETE, onInteractionResult);
 			if(id == 3 || id == 8 || id == 9 || id == 4) 
 			{
-				getUserData(_uID);
+				// getUserData(_uID);
 			}
 			userRequest.addEventListener(IOErrorEvent.IO_ERROR , onAPIError)
 			userRequest.load(req);
@@ -124,13 +121,7 @@ package com.smithandrobot.mud_u.model
 		private function onUserDataLoaded(e:Event = null) : void
 		{
 			_userData = JSON.decode(e.target.data);
-		   	_userData.photosMudded = 2;
-		   	_userData.photosShared = 0;
-		   	_userData.mudvites = 6;
-		   	_userData.mudprops = 8;
-		   	_userData.rank = 15340;
-		   	_userData.weekRank = 120;
-			_userData.friendsData = [{id:3417915, rank:14}, {id:500041832, rank:2}, {id:500042807, rank:14}];
+			trace(e.target.data);
 			sendNotification( ApplicationFacade.PLAYER_DATA, _userData );
 		}
 		
@@ -145,6 +136,7 @@ package com.smithandrobot.mud_u.model
 		private function onInteractionResult(e:Event)  :void
 		{
 			trace("interaction result: "+e.target.data);
+			getUserData(_uID);
 		}
 		
 		

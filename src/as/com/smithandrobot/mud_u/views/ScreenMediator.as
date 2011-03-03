@@ -12,6 +12,7 @@ package com.smithandrobot.mud_u.views
 	import com.smithandrobot.mud_u.model.*;
     import com.smithandrobot.mud_u.ApplicationFacade;
 	import com.smithandrobot.mud_u.views.ui.*;
+	import com.smithandrobot.mud_u.MudUGATracker;
 	
 	public class ScreenMediator extends Mediator implements IMediator
 	{
@@ -32,14 +33,14 @@ package com.smithandrobot.mud_u.views
 			_dataProxy = facade.retrieveProxy("ApplicationDataProxy") as ApplicationDataProxy;
 			_playerProxy = facade.retrieveProxy("APIProxy") as APIProxy;
 			
-			_screens.push({id:"home", clss:HomeScreen, instance:null});
-			_screens.push({id:"userPhotos"	, clss:PickUserPhotoScreen, instance:null});
-			_screens.push({id:"friendsPhotos", clss:PickFriendsPhotoScreen, instance:null});
-			_screens.push({id:"editPhoto", clss:EditPhotoScreen, instance:null});
-			_screens.push({id:"forest", clss:ForestScreen, instance:null});
-			_screens.push({id:"share", clss: ShareScreen, instance:null});
-			_screens.push({id:"finish", clss: FinishScreen, instance:null});
-			_screens.push({id:"webCam", clss: WebCamScreen, instance:null});
+			_screens.push({id:"home", clss:HomeScreen, instance:null, pageID: '/step1/photo-select'});
+			_screens.push({id:"userPhotos"	, clss:PickUserPhotoScreen, instance:null, pageID: '/step2/user-photo'});
+			_screens.push({id:"friendsPhotos", clss:PickFriendsPhotoScreen, instance:null, pageID: '/step2/friend-photo'});
+			_screens.push({id:"editPhoto", clss:EditPhotoScreen, instance:null, pageID: '/step3/photo-resize'});
+			_screens.push({id:"forest", clss:ForestScreen, instance:null, pageID: '/step4/mud-photo'});
+			_screens.push({id:"share", clss: ShareScreen, instance:null, pageID: '/step5/share-photo'});
+			_screens.push({id:"finish", clss: FinishScreen, instance:null, pageID: '/step6/mud-again'});
+			_screens.push({id:"webCam", clss: WebCamScreen, instance:null, pageID: '/step2/webcam'});
 		}
 
 
@@ -326,6 +327,7 @@ package com.smithandrobot.mud_u.views
 				if(_screens[i].id === id) 
 				{
 					if(!_screens[i].instance) _screens[i].instance = new _screens[i].clss(this);
+					MudUGATracker.trackPageView(_screens[i].pageID);
 					addListeners(_screens[i].instance);
 					return _screens[i].instance;
 				}

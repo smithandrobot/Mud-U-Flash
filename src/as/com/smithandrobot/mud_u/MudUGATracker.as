@@ -32,8 +32,15 @@ package com.smithandrobot.mud_u
 		//--------------------------------------
 		public static function trackOutboundClick(location)
 		{
-			_tracker.trackEvent("Outbound Links", "Click", location);
+			_tracker.trackEvent("Outbound Links from Mud U Banner", "Click", location);
 		}
+		
+		public static function trackPageView(page)
+		{
+			trace('tracking page: '+page);
+			_tracker.trackPageview(page);
+		}
+
 	}
 
 }

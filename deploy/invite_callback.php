@@ -12,7 +12,7 @@
 			$invited 	= true;
 			$uIDArray 	= $_POST['ids'];
 			$ids 		= implode(",", $uIDArray);
- 			$ch 		= curl_init('http://muduapp.srsc.us/api/interactions/create/');
+ 			$ch 		= curl_init('184.106.82.125/api/interactions/create/');
 
  			curl_setopt ($ch, CURLOPT_POST, 1);
  			curl_setopt ($ch, CURLOPT_POSTFIELDS, "facebookId=".$_GET['uid']."&interactionId=3&interactionValue=".$ids);

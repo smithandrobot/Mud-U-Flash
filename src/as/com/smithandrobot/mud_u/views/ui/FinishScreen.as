@@ -83,12 +83,6 @@ package com.smithandrobot.mud_u.views.ui
 				return;
 			}
 			
-			trace("Setting action results:\r"+
-			"\ro.postedToWall: "+o.postedToWall+
-			"\ro.photoTagged: "+o.photoTagged+
-			"\ro.photoUploadedToMudUAlbum: "+o.photoUploadedToMudUAlbum);
-
-			
 			feedbackBox.t.visible = true;
 			feedbackBox.check.visible = true;
 			var textArray = new Array();
