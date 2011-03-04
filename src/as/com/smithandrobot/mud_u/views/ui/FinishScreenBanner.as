@@ -18,7 +18,8 @@ package com.smithandrobot.mud_u.views.ui
 	public class FinishScreenBanner extends Sprite 
 	{
 		
-		private static var BANNER_URL = 'https://s3.amazonaws.com/mud-u/mud+u+skyscraper+banner/mudu_skyscraper.swf';
+		// private static var BANNER_URL = 'https://s3.amazonaws.com/mud-u/mud+u+skyscraper+banner/mudu_skyscraper.swf';
+		private static var BANNER_URL = 'http://mud-u.s3.amazonaws.com/mud+u+skyscraper+banner/mudu_skyscraper.swf';
 		
 		public function FinishScreenBanner()
 		{
@@ -29,13 +30,16 @@ package com.smithandrobot.mud_u.views.ui
 		
 		private function loadBanner() : void
 		{
-			var url:String = BANNER_URL+'?reqNum='+new Date().getTime();
+			var url:String = BANNER_URL+'?reqNum='+new Date().getTime()+'-cache';
+            Security.loadPolicyFile( "https://s3.amazonaws.com/" );
+            //Security.loadPolicyFile( "http://mud-u.s3.amazonaws.com/" );
 			var lc = new LoaderContext(true);
 			var r:URLRequest = new URLRequest( url );
 				r.method = URLRequestMethod.GET;
 
 			var l:Loader = new Loader();
-				l.contentLoaderInfo.addEventListener( Event.COMPLETE, onBannerLoaded );
+				// l.contentLoaderInfo.addEventListener( Event.COMPLETE, onBannerLoaded );
+				l.contentLoaderInfo.addEventListener(Event.INIT, onBannerLoaded);
 				//l.contentLoaderInfo.addEventListener( ProgressEvent.PROGRESS, onAppLoadProgress );
 				//l.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onAppLoadError);
 				l.load( r, lc );

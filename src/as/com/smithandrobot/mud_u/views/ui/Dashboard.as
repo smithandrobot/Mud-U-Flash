@@ -98,7 +98,7 @@ package com.smithandrobot.mud_u.views.ui
 		private function onClick(e:MouseEvent) : void
 		{
 			MudUGATracker.trackOutboundClick("http://www.facebook.com/AdventureU?sk=app_4949752878");
-			navigateToURL(new URLRequest("http://www.facebook.com/AdventureU?sk=app_4949752878"), "_blank");
+			navigateToURL(new URLRequest("http://www.facebook.com/AdventureU?sk=app_168741996510364"), "_blank");
 		}
 		
 		
@@ -317,6 +317,7 @@ package com.smithandrobot.mud_u.views.ui
 			friends.forEach(addReturn);
 			return friends;
 		}
+		
 		
 		private function addReturn(o, i, a) : void
 		{
