@@ -103,7 +103,7 @@
 			$url = "http://c0387328.cdn2.cloudfiles.rackspacecloud.com/";
 			break;
 			default:
-			$url = "http://c0387328.cdn2.cloudfiles.rackspacecloud.com/";
+			$url = "http://mud-u.s3.amazonaws.com/app/";
 			break;
 		}
 		return $url;
