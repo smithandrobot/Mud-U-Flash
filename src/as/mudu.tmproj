@@ -3,16 +3,18 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>com/smithandrobot/mud_u/views/ScreenMediator.as</string>
+	<string>com/smithandrobot/mud_u/views/ui/FinishScreenBanner.as</string>
 	<key>documents</key>
 	<array>
 		<dict>
 			<key>filename</key>
 			<string>../../../../../../Desktop/homepageAssets/mudu_todos.txt</string>
 			<key>lastUsed</key>
-			<date>2011-02-22T15:30:28Z</date>
+			<date>2011-03-02T19:55:44Z</date>
 		</dict>
 		<dict>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>deploy</string>
 			<key>regexFolderFilter</key>
@@ -24,7 +26,7 @@
 			<key>filename</key>
 			<string>../../../../../../Sites/fb_oauth/Main.as</string>
 			<key>lastUsed</key>
-			<date>2011-01-20T20:06:34Z</date>
+			<date>2011-03-04T14:54:59Z</date>
 		</dict>
 		<dict>
 			<key>filename</key>
@@ -93,19 +95,123 @@
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
+		<key>../../../../../../Sites/fb_oauth/Main.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>62</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>39</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>83</integer>
+				<key>line</key>
+				<integer>62</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>62</integer>
+			</dict>
+		</dict>
 		<key>../../deploy/index.php</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>6</integer>
+				<integer>0</integer>
 				<key>line</key>
-				<integer>160</integer>
+				<integer>166</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>158</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>4</integer>
+				<key>line</key>
+				<integer>179</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>166</integer>
+			</dict>
+		</dict>
+		<key>../../deploy/invite.php</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>7</integer>
+				<key>line</key>
+				<integer>119</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>133</integer>
+			<integer>96</integer>
+		</dict>
+		<key>../../deploy/invite_callback.html</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>65</integer>
+				<key>line</key>
+				<integer>1</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>../../deploy/invite_callback.php</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>27</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>23</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>27</integer>
+				<key>line</key>
+				<integer>14</integer>
+			</dict>
 		</dict>
 		<key>com/smithandrobot/mud_u/LeaderBoardBuckWild.as</key>
 		<dict>
@@ -162,6 +268,36 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>55</integer>
+		</dict>
+		<key>com/smithandrobot/mud_u/MudUAppLoader.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>25</integer>
+				<key>line</key>
+				<integer>11</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>3</integer>
+			</dict>
 		</dict>
 		<key>com/smithandrobot/mud_u/MudUChart.as</key>
 		<dict>
@@ -223,19 +359,75 @@
 				<integer>7</integer>
 			</dict>
 		</dict>
+		<key>com/smithandrobot/mud_u/model/APIProxy.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>25</integer>
+				<key>line</key>
+				<integer>15</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>71</integer>
+		</dict>
+		<key>com/smithandrobot/mud_u/model/ApplicationLogin.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>3</integer>
+				<key>line</key>
+				<integer>109</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>82</integer>
+		</dict>
+		<key>com/smithandrobot/mud_u/model/FacebookDataProxy.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>242</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>242</integer>
+		</dict>
 		<key>com/smithandrobot/mud_u/views/ScreenMediator.as</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>46</integer>
+				<integer>27</integer>
 				<key>line</key>
-				<integer>14</integer>
+				<integer>11</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
+		</dict>
+		<key>com/smithandrobot/mud_u/views/StatusMediator.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>28</integer>
+				<key>line</key>
+				<integer>58</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>26</integer>
 		</dict>
 		<key>com/smithandrobot/mud_u/views/ui/AdventureUCTA.as</key>
 		<dict>
@@ -251,13 +443,128 @@
 			<key>firstVisibleLine</key>
 			<integer>35</integer>
 		</dict>
+		<key>com/smithandrobot/mud_u/views/ui/Dashboard.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>21</integer>
+				<key>line</key>
+				<integer>76</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>60</integer>
+		</dict>
+		<key>com/smithandrobot/mud_u/views/ui/DashboardFriendModule.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>3</integer>
+				<key>line</key>
+				<integer>71</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>50</integer>
+		</dict>
+		<key>com/smithandrobot/mud_u/views/ui/FinishScreenBanner.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>36</integer>
+				<key>line</key>
+				<integer>37</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>10</integer>
+		</dict>
+		<key>com/smithandrobot/mud_u/views/ui/HomeScreen.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>0</integer>
+				<key>line</key>
+				<integer>129</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>105</integer>
+		</dict>
+		<key>com/smithandrobot/mud_u/views/ui/MudUList.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>13</integer>
+				<key>line</key>
+				<integer>69</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>38</integer>
+		</dict>
+		<key>com/smithandrobot/utils/FileLoader.as</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>28</integer>
+				<key>line</key>
+				<integer>90</integer>
+			</dict>
+			<key>columnSelection</key>
+			<false/>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>79</integer>
+			<key>selectFrom</key>
+			<dict>
+				<key>column</key>
+				<integer>57</integer>
+				<key>line</key>
+				<integer>90</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>28</integer>
+				<key>line</key>
+				<integer>90</integer>
+			</dict>
+		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>com/smithandrobot/mud_u/LeaderBoardMudPie.as</string>
 		<string>../../../../../../Desktop/homepageAssets/mudu_todos.txt</string>
+		<string>com/smithandrobot/mud_u/model/APIProxy.as</string>
+		<string>com/smithandrobot/mud_u/views/ui/DashboardFriendModule.as</string>
+		<string>com/smithandrobot/mud_u/views/ui/Dashboard.as</string>
+		<string>../../../../../../Sites/fb_oauth/Main.as</string>
+		<string>../../deploy/invite_callback.html</string>
+		<string>../../deploy/invite.php</string>
 		<string>../../deploy/index.php</string>
+		<string>com/smithandrobot/mud_u/views/ui/MudUList.as</string>
+		<string>com/smithandrobot/mud_u/model/FacebookDataProxy.as</string>
+		<string>com/smithandrobot/mud_u/views/ui/FinishScreenBanner.as</string>
+		<string>com/smithandrobot/utils/FileLoader.as</string>
+		<string>com/smithandrobot/mud_u/model/ApplicationLogin.as</string>
+		<string>../../deploy/invite_callback.php</string>
+		<string>com/smithandrobot/mud_u/views/ui/HomeScreen.as</string>
+		<string>com/smithandrobot/mud_u/MudUAppLoader.as</string>
 		<string>com/smithandrobot/mud_u/views/ScreenMediator.as</string>
+		<string>com/smithandrobot/mud_u/views/StatusMediator.as</string>
 		<string>com/smithandrobot/mud_u/MudUGATracker.as</string>
 		<string>com/smithandrobot/mud_u/views/ui/AdventureUCTA.as</string>
 		<string>com/smithandrobot/mud_u/LeaderBoardBuckWild.as</string>
@@ -268,6 +575,6 @@
 	<key>showFileHierarchyDrawer</key>
 	<false/>
 	<key>windowFrame</key>
-	<string>{{341, 252}, {1410, 874}}</string>
+	<string>{{145, 304}, {1410, 874}}</string>
 </dict>
 </plist>
