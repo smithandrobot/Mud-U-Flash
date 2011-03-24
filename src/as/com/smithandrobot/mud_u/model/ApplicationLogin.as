@@ -67,17 +67,16 @@ package com.smithandrobot.mud_u.model
 			_bridge.addEventListener( FacebookAuthEvent.LOGIN_PROCESS_START, onLogInStart, false, 0, true );
 			_bridge.addEventListener( FacebookAuthEvent.LOGIN_PROCESS_COMPLETE, onLogInComplete, false, 0, true );
 			_bridge.initialize( lInfo );
-			if(! lInfo.parameters.session) _bridge.login( { perms:_perms } );
-			
+			if(! lInfo.parameters.session) _bridge.login( { perms:_perms } );	
 		}
-		
-		// MouseEvent.MOUSE_MOVE
+
+
 		private function getDebugSession() : OAuthSession
 		{	
 			var sessionObj:Object  	= {};
 			// test user	
-			sessionObj.access_token	= "172785809421346|1eb501d7a4f471087fbcfe6b-100000241798640|NfuYzoC-NwEUPkY_hDfwliC83Go";
-			//sessionObj.access_token	= "172785809421346|f757d3746bf1cf346b03a7f8-562363085|tjwtQPkmepBqbUY71M8gnEsRH-g";
+			sessionObj.access_token	= "172785809421346|815f9178576a6b4545cd5a2c-100000241798640|WdcIKxIA1vnBY6d_tuIqQc0hfX8";
+			// sessionObj.access_token	= "172785809421346|f757d3746bf1cf346b03a7f8-562363085|tjwtQPkmepBqbUY71M8gnEsRH-g";
 			sessionObj.expires 	   	= 000000000;
 			sessionObj.secret 	   	= "Sp7av4fu1nVZ7aEZSgPGZQ__";
 			sessionObj.session_key 	= "2.hTY_89ILXQmmit37RcQrjA__.3600.1292533200-562363085";
@@ -164,15 +163,6 @@ package com.smithandrobot.mud_u.model
 			
 			_apiProxy.playerData 	 = _playerData;
 			_apiProxy.getUserData(_uid);
-		   	/*_playerData.photosMudded = 1;
-		   	_playerData.photosShared = 0;
-		   	_playerData.mudvites 	 = 5;
-		   	_playerData.mudprops 	 = 6;
-		   	_playerData.rank 		 = 15344;
-		   	_playerData.weekRank 	 = 1123;
-			_playerData.friendsData  = [{id:3417915, rank:14}, {id:500041832, rank:2}, {id:500042807, rank:14}];*/
-						
-			//sendNotification( ApplicationFacade.PLAYER_DATA, _playerData);
 		}
 		
 		
@@ -181,7 +171,6 @@ package com.smithandrobot.mud_u.model
 			var fb = new FacebookDataProxy();
 
 			_apiProxy.playerID 	= _uid;
-			//apiProxy.playerData = _playerData;
 			fb.token 			= _bridge.session.access_token;
 			fb.sessionKey 		= _bridge.session.session_key;
 			fb.uid 				= _uid;
@@ -195,8 +184,6 @@ package com.smithandrobot.mud_u.model
 			
 			var appModel = facade.retrieveProxy("ApplicationDataProxy");
 
-			/*appModel.screen = "home";*/
-			// appModel.screen = "share";	
 			appModel.screen = "home";
 		}
     }

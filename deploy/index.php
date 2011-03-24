@@ -7,27 +7,68 @@
 	$swfBase	= getSWFBase($appType);
 	srand ((double) microtime( )*1000000);
 	$cache = rand();
-	// echo 'location: '.$location = $_SERVER['REQUEST_URI'];
-	//    echo'<br />appType: '.$appType;
-	//    echo'<br />appID: '.$appID;
-	//    echo'<br />appURL: '.$appURL;
-	//    echo'<br />swf base: '.$swfBatrase;
-	if( isset( $_GET["session"] ) )
+	$fbappID 	= 'fbs_'.$_REQUEST['fb_sig_app_id'];
+	
+	// print('<pre>');
+	// print_r($_REQUEST);
+	// print('</pre>');
+
+	// exit; 
+	if( getAccessToken() )
 	{
-		$session = urldecode( $_GET["session"] );
-		if( strpos( $_SERVER['HTTP_USER_AGENT'], 'MSIE') )
-		{
-			$session = htmlspecialchars( $session );
-		}
+		echo getAccessToken();
+		$session = 	getSessionData();
+
 	}else{
 		$base_url = "https://graph.facebook.com/oauth/authorize?";
-		$scope = "manage_pages, user_birthday, user_location, email, read_stream, friends_photos, user_photos,publish_stream, friends_photo_video_tags, user_photo_video_tags,offline_access";
+		$scope = "user_birthday, user_location, email, read_stream, friends_photos, user_photos,publish_stream, friends_photo_video_tags, user_photo_video_tags,offline_access";
 		$redirect_uri = "http://apps.facebook.com/".getAppURL($appType)."/";
 		$client_id = getAppID($appType);
 		$display = "page";
 		$url = $base_url.'client_id='.$client_id.'&redirect_uri='.$redirect_uri.'&type=user_agent'.'&scope='.$scope.'&display='.$display;
+
 		echo "<script type='text/javascript'>top.location.href = '$url';</script>";
 		exit;         
+	}
+	
+	function getAccessToken()
+	{
+		if($_GET['access_token'])
+		{
+			$accessToken = urldecode($_GET['access_token']);
+			return $accessToken;
+		}
+		
+	    $ch = curl_init("https://graph.facebook.com/oauth/exchange_sessions");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, array(
+            "type" => "client_cred",
+            "client_id" => "172785809421346",
+            "client_secret" => "8b925cb48350bb2d0c6ed0a6277839d2",
+            "sessions" => $_REQUEST["fb_sig_session_key"]
+        ));
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = json_decode(curl_exec($ch));
+        $accessToken = $result[0]->access_token;
+        return $accessToken;
+	}
+	
+	
+	
+	function getSessionData()
+	{
+		$expires = $_REQUEST['fb_sig_expires'];
+		$token = getAccessToken();
+		$secret = '8d00db0ebac4efabcc87477efdcb0d08';
+		$sesionKey = $_REQUEST['fb_sig_session_key'];
+		$sig = $_REQUEST['fb_sig'];
+		$uid = $_REQUEST['fb_sig_user'];
+		$arr = array('access_token'=>$token, 'expires'=>$expires, 'secret'=>$secret, 'session_key'=>$sesionKey, 'sig'=>$sig, 'uid'=>$uid);
+		$fbappID 	= 'fbs_'.$_REQUEST['fb_sig_app_id'];
+
+		return json_encode($arr);
+		exit;
 	}
 	
 	// 
@@ -100,7 +141,7 @@
 			$url = "http://c0381025.cdn2.cloudfiles.rackspacecloud.com/";
 			break;
 			case "live":
-			$url = "http://c0387328.cdn2.cloudfiles.rackspacecloud.com/";
+			$url = "http://c387328.r28.cf2.rackcdn.com/";
 			break;
 			default:
 			$url = "http://mud-u.s3.amazonaws.com/app/";
@@ -128,7 +169,7 @@
 	<meta name="description" content="">
 	<meta name="content" content="">
 	<meta name="keywords" content="">
-	<link rel="stylesheet" type="text/css" href="default.css">
+	<link rel="stylesheet" type="text/css" href="default.css"> 
 	<script src="http://connect.facebook.net/en_US/all.js"></script>
 	<script src="js/swfobject.js" type="text/javascript" charset="utf-8"></script>
   	<script type="text/javascript" charset="utf-8">
@@ -163,20 +204,15 @@
 		function getInviteState() { return inviteState; };
 		
 		function setInviteState(s) { inviteState = s; };
-
 		window.fbAsyncInit = function() 
 		{
 				FB.Canvas.setSize( {height:1125} );
-				//FB.Canvas.setAutoResize();
 			  	FB.init({
 			    appId  : '<?php echo $appID; ?>',
 			    status : true, // check login status
 			    cookie : true, // enable cookies to allow the server to access the session
 			    xfbml  : true  // parse XFBML
 			  	});
-				//FB.Canvas.setSize( {height:1125} );
-				//FB.Canvas.setAutoResize();
-
 		};
 	</script>
 	
@@ -185,6 +221,7 @@
 		var swf_file =  	   "<?php echo $swfBase.'mud_u_app_loader.swf?cache='.$cache; ?>";
 		var swf_div =  		   "swfContainer";
 		var swf_div_width =    "760px";
+		// var swf_div_height =   "670px";
 		var swf_div_height =   "1125px";
 		var swf_install =  	   "http://c0374997.cdn2.cloudfiles.rackspacecloud.com/expressInstall.swf";
 		var swf_redirect_ver = "10.0.0"
@@ -201,7 +238,7 @@
 
 	</script>
 </head>
-
+	
 <body>
 	<div id="fb-root">
 		<div id="flashContainer">
@@ -210,23 +247,23 @@
 		    </div>
 		    <noscript> Get Flash and/or enable Javascript. </noscript>
 		</div>
+		<iframe id="invite" scrolling="no" allowtransparency="true" frameborder="0" style="border:none; width:760px; height:670px; margin:0px; padding:0px; overflow:hidden; position:absolute; top:0px; left:0px;"></iframe>
+		<script type="text/javascript">
+		    window.onload = function()
+		    {   			
+				hideInvite();
+				inviteState = "closed";
+			 	FB.Canvas.setSize( {height:1125} );
+		    }
+		</script>
+		<fb:serverfbml> 
+			<script type="text/fbml">
+			    <fb:fbml>
+					<fb:google-analytics uacct="UA-16638319-3" />
+			    </fb:fbml>
+			</script> 
+		</fb:serverfbml>
 	</div>
-	<iframe id="invite" scrolling="no" allowtransparency="true" frameborder="0" style="border:none; width:760px; height:1125px; margin:0px; padding:0px; overflow:hidden; position:absolute; top:0px; left:0px;"></iframe>
-	<script type="text/javascript">
-	    window.onload = function()
-	    {   			
-			hideInvite();
-			inviteState = "closed";
-			FB.Canvas.setSize( {height:1125} );
-	    }
-	</script>
-<fb:serverfbml> 
-	<script type="text/fbml">
-	    <fb:fbml>
-			<fb:google-analytics uacct="UA-16638319-3" />
-	    </fb:fbml>
-	</script> 
-</fb:serverfbml>
 <!-- end analytics -->
 </body>
 </html>

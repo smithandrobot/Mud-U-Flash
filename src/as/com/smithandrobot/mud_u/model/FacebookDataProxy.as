@@ -237,7 +237,7 @@ package com.smithandrobot.mud_u.model
 			if(_debug) return;
 			
 			if(bmpData == null) return;
-			var albumID = "101069723301943";//"167802903267571";
+			var albumID = "115311241877791"//"101069723301943";//"167802903267571";
 			var j_encoder:JPGEncoder = new JPGEncoder(90);
 			var img:ByteArray = j_encoder.encode(bmpData);
 
